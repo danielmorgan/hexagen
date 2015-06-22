@@ -1,0 +1,18 @@
+{
+  "name": "hexagen",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "browser-sync": "^2.7.12",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "*",
+    "gulp-faster-browserify": "^0.2.1",
+    "livereload": "*"
+  },
+  "dependencies": {
+    "backbone": "^1.2.1",
+    "backbone.konvaview": "^0.9.5",
+    "jquery": "^2.1.4"
+  }
+}
