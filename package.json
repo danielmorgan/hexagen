@@ -7,11 +7,12 @@
     "gulp": "^3.9.0",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "*",
-    "gulp-faster-browserify": "^0.2.1",
+    "gulp-uglify": "*",
     "livereload": "*"
   },
   "dependencies": {
     "backbone": "^1.2.1",
+    "konva": "^0.9.5",
     "backbone.konvaview": "^0.9.5",
     "jquery": "^2.1.4"
   }
