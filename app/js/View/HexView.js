@@ -24,6 +24,8 @@ var HexView = Backbone.KonvaView.extend({
 		return new Konva.RegularPolygon({
             sides: 6,
             radius: 80,
+            q: this.model.get("q"),
+            r: this.model.get("r"),
             x: this.model.get("x"),
             y: this.model.get("y"),
             fill: this.model.get("fill"),

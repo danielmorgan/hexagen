@@ -29,5 +29,5 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('default', ['browserSync', 'scripts'], function() {
-	gulp.watch('app/js/app.js', ['scripts']);
+	gulp.watch('app/js/**', ['scripts']);
 });
