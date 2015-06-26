@@ -49,7 +49,7 @@ var HexView = Backbone.KonvaView.extend({
 	},
 
     render: function() {
-        console.log("HexView.render()");
+        console.log("HexView.render()", this.model.get("x"), this.model.get("y"));
 
         Layers.map.draw();
     },

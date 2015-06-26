@@ -4,27 +4,34 @@ var Backbone = require("backbone");
 
 var Hex = Backbone.Model.extend({
 	initialize: function() {
-		var width = 160;
-		var height = Math.sqrt(3)/2 * width;
-		var horiz = 3/4 * width;
-		var vert = height;
-		var q = this.get("q");
-		var r = this.get("r");
+        var centerX = window.innerWidth / 2;
+        var centerY = window.innerHeight / 2;
 
-		if (q % 2 != 0) {
-			var offset = 1/2 * vert;
-		} else {
-			var offset = 0;
-		}
+        var radius = 80;
+        var width = radius * (Math.sqrt(3) / 2);
+        var height = radius * 2;
 
-		var x = q;
-		var y = r;
-		var z = y - (x + (x&1)) / 2;
+        var horizontal = width;
+        var vertical = height * (3/4);
 
-		this.set("x", x * horiz);
-		this.set("y", (z * vert) + offset);
+        var q = this.get("q");
+        var r = this.get("r");
 
-		console.log(this);
+        var offset = 0;
+        if (r % 2 != 0) {
+            offset = horizontal / 2;
+        }
+
+        var x = q;
+        var y = r;
+
+        console.log('y:', y);
+
+        var pixelX = centerX + (x * horizontal) + offset;
+        var pixelY = centerY + (y * vertical);
+
+		this.set("x", pixelX);
+		this.set("y", pixelY);
 	},
 
     defaults: {
