@@ -7,7 +7,7 @@ var Layers = require("../layers.js");
 
 var HexView = Backbone.KonvaView.extend({
 	initialize: function() {
-        console.log("HexView.initialize()")
+        // console.log("HexView.initialize()")
 
         this.addToMap();
         this.render();
@@ -19,7 +19,7 @@ var HexView = Backbone.KonvaView.extend({
     },
 
 	el: function() {
-        console.log("HexView.el()")
+        // console.log("HexView.el()")
 
 		return new Konva.RegularPolygon({
             sides: 6,
@@ -34,28 +34,28 @@ var HexView = Backbone.KonvaView.extend({
 	},
 
     changeFill: function() {
-        console.log("HexView.changeFill()")
+        // console.log("HexView.changeFill()")
         var colors = ["red", "yellow", "green", "purple", "white"];
         var color = colors[Math.floor(Math.random() * colors.length)];
-        console.log("HexView.changeFill()", color)
+        // console.log("HexView.changeFill()", color)
 
         this.model.set({ fill: color, opacity: 0.5 });
     },
 
 	addToMap: function() {
-        console.log("HexView.addToMap()")
+        // console.log("HexView.addToMap()")
 
         Layers.map.add(this.el);
 	},
 
     render: function() {
-        console.log("HexView.render()", this.model.get("x"), this.model.get("y"));
+        // console.log("HexView.render()", this.model.get("x"), this.model.get("y"));
 
         Layers.map.draw();
     },
 
     update: function(object) {
-        console.log("HexView.update()");
+        // console.log("HexView.update()");
         this.el.attrs["fill"] = this.model.get("fill");
 
         this.render();
