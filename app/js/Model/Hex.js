@@ -3,34 +3,30 @@
 var Backbone = require("backbone");
 
 var Hex = Backbone.Model.extend({
+    radius: 80,
+
 	initialize: function() {
         var center = {
             x: window.innerWidth / 2,
             y: window.innerHeight / 2
         };
 
-        var radius = 80;
-        var height = radius * 2;
+        var height = this.radius * 2;
         var vert = height * 3/4
         var width = Math.sqrt(3)/2 * height;
 
         var q = this.get("q");
         var r = this.get("r");
-        
+
         var offset = 0;
         if (q % 2 != 0) {
             var offset = 0.5;
         }
 
-        var cubeCoordinates = this.axialToCube(q, r);
+        var pixelCoordinates = this.axialToPixel(q, r);
 
-        var pixelCoordinates = {
-            x: center.x + ((cubeCoordinates.x + offset) * width),
-            y: center.y + (cubeCoordinates.z * vert)
-        };
-
-		this.set("x", pixelCoordinates.x);
-		this.set("y", pixelCoordinates.y);
+		this.set("x", center.x + pixelCoordinates.x + offset);
+		this.set("y", center.y + pixelCoordinates.y);
 	},
 
     cubeToAxial: function(x, z) {
@@ -43,12 +39,18 @@ var Hex = Backbone.Model.extend({
         var y = -x-z;
 
         if (x + y + z === 0) {
-            console.log({ x: x, y: y, z: z });
             return { x: x, y: y, z: z };
         } else {
             console.error('Cube coordinates do not equal 0!');
             return { x: 0, y: 0, z: 0 };
         }
+    },
+
+    axialToPixel: function(q, r) {
+        var x = this.radius * Math.sqrt(3) * (q + r/2);
+        var y = this.radius * 3/2 * r;
+
+        return { x: x, y: y };
     },
 
     defaults: {
