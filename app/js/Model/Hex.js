@@ -6,28 +6,20 @@ var Hex = Backbone.Model.extend({
     radius: 80,
 
 	initialize: function() {
+        this.setPixelCoordinates();
+	},
+
+    setPixelCoordinates: function() {
         var center = {
             x: window.innerWidth / 2,
             y: window.innerHeight / 2
         };
 
-        var height = this.radius * 2;
-        var vert = height * 3/4
-        var width = Math.sqrt(3)/2 * height;
+        var pixelCoordinates = this.axialToPixel(this.get("q"), this.get("r"));
 
-        var q = this.get("q");
-        var r = this.get("r");
-
-        var offset = 0;
-        if (q % 2 != 0) {
-            var offset = 0.5;
-        }
-
-        var pixelCoordinates = this.axialToPixel(q, r);
-
-		this.set("x", center.x + pixelCoordinates.x + offset);
-		this.set("y", center.y + pixelCoordinates.y);
-	},
+        this.set("x", center.x + pixelCoordinates.x);
+        this.set("y", center.y + pixelCoordinates.y);
+    },
 
     cubeToAxial: function(x, z) {
         return { q: x, r: z };
@@ -47,14 +39,18 @@ var Hex = Backbone.Model.extend({
     },
 
     axialToPixel: function(q, r) {
-        var x = this.radius * Math.sqrt(3) * (q + r/2);
+        var offset = 0;
+        if (q % 2 != 0) {
+            offset = 0.5;
+        }
+
+        var x = this.radius * Math.sqrt(3) * (q + r/2) + offset;
         var y = this.radius * 3/2 * r;
 
         return { x: x, y: y };
     },
 
     defaults: {
-        stroke: "black",
         q: 0,
         r: 0
     }

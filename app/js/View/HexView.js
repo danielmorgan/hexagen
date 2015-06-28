@@ -21,21 +21,39 @@ var HexView = Backbone.KonvaView.extend({
 	el: function() {
         // console.log("HexView.el()")
 
-		return new Konva.RegularPolygon({
+        var width = 142;
+        var height = 178;
+
+        var group = new Konva.Group();
+
+		var polygon = new Konva.RegularPolygon({
             sides: 6,
             radius: 80,
-            q: this.model.get("q"),
-            r: this.model.get("r"),
             x: this.model.get("x"),
             y: this.model.get("y"),
             fill: this.model.get("fill"),
-            stroke: this.model.get("stroke")
+            opacity: 0.5
 		});
+
+        var grassTileGraphic = new Image();
+        grassTileGraphic.src = '/img/grass.png'
+
+        var image = new Konva.Image({
+            x: this.model.get("x") - (width / 2),
+            y: this.model.get("y") - ((height - 15) / 2),
+            image: grassTileGraphic,
+            width: width,
+            height: height
+        });
+
+        group.add(image, polygon);
+
+        return group;
 	},
 
     changeFill: function() {
         // console.log("HexView.changeFill()")
-        var colors = ["red", "yellow", "green", "purple", "white"];
+        var colors = ['#222222', '#2ecc71',  '#3498db', '#ecf0f1', '#34495e', '#f1c40f', '#e74c3c'];
         var color = colors[Math.floor(Math.random() * colors.length)];
         // console.log("HexView.changeFill()", color)
 

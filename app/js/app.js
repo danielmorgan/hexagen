@@ -4,12 +4,12 @@ require("./stage.js");
 var HexCollection = require("./Model/HexCollection.js");
 var HexCollectionView = require("./View/HexCollectionView.js");
 
-var colors = ['black', '#FFD8D8',  '#F38383', '#E3E3FF', '#7290FF', '#E8FFCB', '#B7EB78'];
+var colors = ['#222222', '#2ecc71',  '#3498db', '#ecf0f1', '#34495e', '#f1c40f', '#e74c3c'];
 var axialDirections = [
-    { q: 0, r: 0 },
     { q: 0, r: -1 }, // up, left
     { q: 1, r: -1 }, // up, right
     { q: -1, r: 0 }, // left
+    { q: 0, r: 0 },
     { q: 1, r: 0 }, // right
     { q: -1, r: 1 }, // down, left
     { q: 0, r: 1 } // down, right
