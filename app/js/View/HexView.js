@@ -1,18 +1,30 @@
 "use strict";
 
+var _ = require("underscore");
 var Backbone = require("backbone");
 var Konva = require("konva");
 var KonvaView = require("backbone.konvaview");
 var Layers = require("../layers.js");
 
+
 var HexView = Backbone.KonvaView.extend({
+    grass: new Image(),
+
 	initialize: function() {
         // console.log("HexView.initialize()")
+        this.grass.src = 'img/grass.png';
 
+        console.log(this.grass);
+
+        this.grass.addEventListener("load", this.testListener);
+        
         this.addToMap();
         this.render();
         this.listen();
 	},
+
+    testListener: function(e) {
+    },
 
     listen: function() {
         this.listenTo(this.model, "change", this.update);
@@ -31,17 +43,13 @@ var HexView = Backbone.KonvaView.extend({
             radius: 80,
             x: this.model.get("x"),
             y: this.model.get("y"),
-            fill: this.model.get("fill"),
-            opacity: 0.5
+            opacity: 1
 		});
-
-        var grassTileGraphic = new Image();
-        grassTileGraphic.src = '/img/grass.png'
 
         var image = new Konva.Image({
             x: this.model.get("x") - (width / 2),
             y: this.model.get("y") - ((height - 15) / 2),
-            image: grassTileGraphic,
+            image: this.grass,
             width: width,
             height: height
         });
@@ -73,8 +81,8 @@ var HexView = Backbone.KonvaView.extend({
     },
 
     update: function(object) {
-        // console.log("HexView.update()");
-        this.el.attrs["fill"] = this.model.get("fill");
+        console.log("HexView.update()");
+        this.el.getChildren()[1].attrs["fill"] = this.model.get("fill");
 
         this.render();
     },
