@@ -5,25 +5,18 @@ var Backbone = require("backbone");
 var Konva = require("konva");
 var KonvaView = require("backbone.konvaview");
 var Layers = require("../layers.js");
+var GrassTile = require("./GrassTile.js");
 
 
 var HexView = Backbone.KonvaView.extend({
-    grass: new Image(),
-
 	initialize: function() {
-        // console.log("HexView.initialize()")
-        this.grass.src = 'img/grass.png';
-
-        console.log(this.grass);
-
-        this.grass.addEventListener("load", this.testListener);
-        
         this.addToMap();
         this.render();
         this.listen();
 	},
 
     testListener: function(e) {
+        console.log(e, this.grass);
     },
 
     listen: function() {
@@ -35,6 +28,8 @@ var HexView = Backbone.KonvaView.extend({
 
         var width = 142;
         var height = 178;
+
+        var grassTile = new GrassTile();
 
         var group = new Konva.Group();
 
@@ -49,7 +44,7 @@ var HexView = Backbone.KonvaView.extend({
         var image = new Konva.Image({
             x: this.model.get("x") - (width / 2),
             y: this.model.get("y") - ((height - 15) / 2),
-            image: this.grass,
+            image: grassTile.el,
             width: width,
             height: height
         });

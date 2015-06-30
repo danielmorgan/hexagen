@@ -2,14 +2,14 @@
 
 var Backbone = require("backbone");
 var Konva = require("konva");
-var HexCollection = require("../Model/HexCollection.js");
+var Hexes = require("../Model/Hexes.js");
 var HexView = require("../View/HexView.js");
 var Layers = require("../layers.js");
 var hexagon;
 
-var HexCollectionView = Backbone.View.extend({
+var HexesView = Backbone.View.extend({
     initialize: function(hexes) {
-        console.log("HexCollectionView.initialize()");
+        console.log("HexesView.initialize()");
 
         this.hexes = hexes;
 
@@ -27,4 +27,4 @@ var HexCollectionView = Backbone.View.extend({
     }
 });
 
-module.exports = HexCollectionView;
+module.exports = HexesView;

@@ -1,8 +1,8 @@
 "use strict";
 
 require("./stage.js");
-var HexCollection = require("./Model/HexCollection.js");
-var HexCollectionView = require("./View/HexCollectionView.js");
+var Hexes = require("./Model/Hexes.js");
+var HexesView = require("./View/HexesView.js");
 
 var colors = ['#222222', '#2ecc71',  '#3498db', '#ecf0f1', '#34495e', '#f1c40f', '#e74c3c'];
 var axialDirections = [
@@ -24,4 +24,4 @@ for (var i = 0; i < 7; i++) {
     hexes.push({ fill: color, q: q, r: r });
 }
 
-new HexCollectionView(new HexCollection(hexes));
+new HexesView(new Hexes(hexes));
