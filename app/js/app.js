@@ -14,14 +14,15 @@ var axialDirections = [
     { q: -1, r: 1 }, // down, left
     { q: 0, r: 1 } // down, right
 ];
-var hexes = [];
+var hexArray = [];
 
 for (var i = 0; i < 7; i++) {
     var color = colors[i];
     var q = axialDirections[i].q;
     var r = axialDirections[i].r;
 
-    hexes.push({ fill: color, q: q, r: r });
+    hexArray.push({ fill: color, q: q, r: r });
 }
 
-new HexesView(new Hexes(hexes));
+var hexes = new Hexes(hexArray);
+var hexesView = new HexesView(hexes);
