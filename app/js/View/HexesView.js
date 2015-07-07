@@ -23,7 +23,7 @@ var HexesView = Backbone.View.extend({
         var anim = new Konva.Animation(function(frame) {
         	hexagon.el.setY(amplitude * Math.sin(frame.time * 2 * Math.PI / period) + originalPosY);
         }, Layers.map);
-        // anim.start();
+        anim.start();
     }
 });
 

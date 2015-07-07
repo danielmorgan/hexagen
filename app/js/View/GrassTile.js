@@ -5,12 +5,11 @@ var Backbone = require("backbone");
 
 var GrassTile = Backbone.View.extend({
 
-	el: function() {
-		var image = new Image();
-		image.src = 'img/grass.png';
-
-		return image;
-	},
+    el: function() {
+        var image = new Image();
+        image.src = 'img/grass.png';
+        return image;
+    }
 
 });
 

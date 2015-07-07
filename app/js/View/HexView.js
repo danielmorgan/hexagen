@@ -6,6 +6,7 @@ var Backbone = require("backbone");
 var Konva = require("konva");
 var KonvaView = require("backbone.konvaview");
 var Layers = require("../layers.js");
+var GrassTile = require("./GrassTile.js");
 
 
 var HexView = Backbone.KonvaView.extend({
@@ -24,36 +25,31 @@ var HexView = Backbone.KonvaView.extend({
     },
 
     el: function() {
-        console.log("HexView.el()")
+        console.log("HexView.el()");
+
+        var grassTile = new GrassTile();
 
         var polygon = new Konva.RegularPolygon({
             sides: 6,
             radius: 80,
             x: this.model.get("x"),
             y: this.model.get("y"),
-            fill: "#eee",
+            strokeWidth: 6,
             opacity: 1
         });
 
-        return polygon;
-    },
-
-    loadImage: function() {
-        var grassTile = new Image();
-        $(grassTile).on('load', null, this, function(event) {
-            var self = event.data;
-
-            var image = new Konva.Image({
-                x: self.model.get("x") - (width / 2),
-                y: self.model.get("y") - ((height - 15) / 2),
-                image: grassTile.el,
-                width: width,
-                height: height
-            });
-
-            group.add(image);
+        var image = new Konva.Image({
+            width: 142,
+            height: 180,
+            x: this.model.get("x") - 76,
+            y: this.model.get("y") - 92,
+            image: grassTile.el
         });
-        grassTile.src = 'img/grass.png';
+
+        var group = new Konva.Group();
+        group.add(image, polygon);
+
+        return group;
     },
 
     changeFill: function() {
@@ -81,7 +77,9 @@ var HexView = Backbone.KonvaView.extend({
     update: function(object) {
         console.log("HexView.update()");
 
-        this.el.attrs["fill"] = this.model.get("fill");
+        console.log(this.el);
+
+        this.el.children[1].attrs["stroke"] = this.model.get("fill");
 
         this.render();
     },
