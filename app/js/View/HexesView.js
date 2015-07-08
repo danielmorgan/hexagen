@@ -1,15 +1,14 @@
-"use strict";
+'use strict';
 
-var Backbone = require("backbone");
-var Konva = require("konva");
-var Hexes = require("../Model/Hexes.js");
-var HexView = require("../View/HexView.js");
-var Layers = require("../layers.js");
+var Backbone = require('backbone');
+var Konva = require('konva');
+var HexView = require('../View/HexView.js');
+var Layers = require('../layers.js');
 var hexagon;
 
 var HexesView = Backbone.View.extend({
     initialize: function(hexes) {
-        console.log("HexesView.initialize()");
+        console.log('HexesView.initialize()');
 
         this.hexes = hexes;
 

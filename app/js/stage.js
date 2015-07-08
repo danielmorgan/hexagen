@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
-var Konva = require("konva");
-var Layers = require("./layers.js");
+var Konva = require('konva');
+var Layers = require('./layers.js');
 
 var Stage = new Konva.Stage({
-    container: "container",
+    container: 'container',
     width: window.innerWidth,
     height: window.innerHeight
 });

@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var Backbone = require("backbone");
+var Backbone = require('backbone');
 
 var Hex = Backbone.Model.extend({
     defaults: {

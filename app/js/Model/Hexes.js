@@ -1,12 +1,14 @@
-"use strict";
+'use strict';
 
-var Backbone = require("backbone");
-var Hex = require("./Hex.js");
+var Backbone = require('backbone');
+var Hex = require('./Hex.js');
 
 var Hexes = Backbone.Collection.extend({
     model: Hex,
 
-    // TODO: implement
+    /**
+     * TODO: implement
+     */
     sortByRow: function() {
     }
 });

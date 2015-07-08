@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 var CoordinateHelper = {
     radius: 80,
 
     axialToPixel: function(q, r, centered) {
-        console.log("CoordinateHelper.axialToPixel()");
+        console.log('CoordinateHelper.axialToPixel()');
 
         centered = typeof centered !== 'undefined' ? centered : true;
 
@@ -24,7 +24,10 @@ var CoordinateHelper = {
         return { x: x, y: y };
     },
 
-    // TODO: implement
+
+    /**
+     * TODO: implement
+     */
     pixelToAxial: function(x, y) {
     },
 
@@ -40,7 +43,7 @@ var CoordinateHelper = {
             return { x: 0, y: 0, z: 0 };
         }
     },
-    
+
     cubeToAxial: function(x, z) {
         return { q: x, r: z };
     }

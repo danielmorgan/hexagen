@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-require("./stage.js");
-var Hexes = require("./Model/Hexes.js");
-var HexesView = require("./View/HexesView.js");
+require('./stage.js');
+var Hexes = require('./Model/Hexes.js');
+var HexesView = require('./View/HexesView.js');
 
 var colors = ['#222222', '#2ecc71',  '#3498db', '#ecf0f1', '#34495e', '#f1c40f', '#e74c3c'];
 var axialDirections = [
@@ -17,7 +17,7 @@ var axialDirections = [
     { q: 1, r: -2 },
     { q: -2, r: 0 },
     { q: 0, r: 0 },
-    { q: 2, r: 0 }, 
+    { q: 2, r: 0 },
     { q: -1, r: 2 },
     { q: 0, r: 2 }
 ];
