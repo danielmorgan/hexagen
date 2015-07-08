@@ -27,29 +27,33 @@ var HexView = Backbone.KonvaView.extend({
     el: function() {
         console.log("HexView.el()");
 
+        var radius = 80;
+        var width = radius * 1.75;
+        var height = radius * 2;
         var grassTile = new GrassTile();
 
         var polygon = new Konva.RegularPolygon({
             sides: 6,
-            radius: 80,
+            radius: radius,
             x: this.model.get("x"),
             y: this.model.get("y"),
-            strokeWidth: 6,
+            stroke: "black",
+            strokeWidth: 1,
             opacity: 1
         });
 
         var image = new Konva.Image({
-            width: 142,
-            height: 180,
-            x: this.model.get("x") - 76,
-            y: this.model.get("y") - 92,
+            width: width,
+            height: height + 15,
+            x: this.model.get("x") - (width / 2),
+            y: this.model.get("y") - (height / 2),
             image: grassTile.el
         });
 
-        var group = new Konva.Group();
-        group.add(image, polygon);
+        var tile = new Konva.Group();
+        tile.add(image, polygon);
 
-        return group;
+        return tile;
     },
 
     changeFill: function() {
@@ -77,9 +81,13 @@ var HexView = Backbone.KonvaView.extend({
     update: function(object) {
         console.log("HexView.update()");
 
-        console.log(this.el);
+        console.log(this.el.children[0].attrs.image["src"]);
 
-        this.el.children[1].attrs["stroke"] = this.model.get("fill");
+        if (this.el.children[0].attrs.image["src"] == "http://localhost:3000/img/paper.png") {
+            this.el.children[0].attrs.image["src"] = "img/grass.png"
+        } else {
+            this.el.children[0].attrs.image["src"] = "img/paper.png"
+        }
 
         this.render();
     },

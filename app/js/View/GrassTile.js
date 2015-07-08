@@ -7,7 +7,8 @@ var GrassTile = Backbone.View.extend({
 
     el: function() {
         var image = new Image();
-        image.src = 'img/grass.png';
+        var images = ["img/paper.png", "img/paper.png", "img/grass.png"];
+        image.src = images[Math.floor(Math.random() * images.length)];
         return image;
     }
 
