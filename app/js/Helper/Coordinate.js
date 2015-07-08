@@ -4,7 +4,7 @@ var CoordinateHelper = {
     radius: 80,
 
     axialToPixel: function(q, r, centered) {
-        console.log('CoordinateHelper.axialToPixel()');
+        // console.log('> CoordinateHelper.axialToPixel()');
 
         centered = typeof centered !== 'undefined' ? centered : true;
 
@@ -32,6 +32,8 @@ var CoordinateHelper = {
     },
 
     axialToCube: function(q, r) {
+        // console.log('> CoordinateHelper.axialToCube()');
+
         var x = q;
         var z = r;
         var y = -x-z;
@@ -45,6 +47,8 @@ var CoordinateHelper = {
     },
 
     cubeToAxial: function(x, z) {
+        // console.log('> CoordinateHelper.cubeToAxial()');
+
         return { q: x, r: z };
     }
 

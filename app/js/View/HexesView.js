@@ -8,7 +8,7 @@ var hexagon;
 
 var HexesView = Backbone.View.extend({
     initialize: function(hexes) {
-        console.log('HexesView.initialize()');
+        // console.log('> HexesView.initialize()');
 
         this.hexes = hexes;
 
