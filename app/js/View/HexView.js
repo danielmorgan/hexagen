@@ -7,11 +7,12 @@ var Konva = require("konva");
 var KonvaView = require("backbone.konvaview");
 var Layers = require("../layers.js");
 var GrassTile = require("./GrassTile.js");
+var CoordinateHelper = require("../Helper/Coordinate.js")
 
 
 var HexView = Backbone.KonvaView.extend({
     initialize: function() {
-        console.log("HexView.initialize()")
+        console.log("HexView.initialize()");
 
         this.addToMap();
         this.render();
@@ -28,15 +29,16 @@ var HexView = Backbone.KonvaView.extend({
         console.log("HexView.el()");
 
         var radius = 80;
-        var width = radius * 1.75;
+        var width = radius + (radius * 3/4);
         var height = radius * 2;
         var grassTile = new GrassTile();
+        var pixelCoordinates = this.axialToPixel(this.model.get("q"), this.model.get("r"));
 
         var polygon = new Konva.RegularPolygon({
             sides: 6,
             radius: radius,
-            x: this.model.get("x"),
-            y: this.model.get("y"),
+            x: pixelCoordinates.x,
+            y: pixelCoordinates.y,
             stroke: "black",
             strokeWidth: 1,
             opacity: 1
@@ -45,8 +47,10 @@ var HexView = Backbone.KonvaView.extend({
         var image = new Konva.Image({
             width: width,
             height: height + 15,
-            x: this.model.get("x") - (width / 2),
-            y: this.model.get("y") - (height / 2),
+            x: pixelCoordinates.x - (width / 2),
+            y: pixelCoordinates.y - (height / 2),
+            stroke: "purple",
+            strokeWidth: 1,
             image: grassTile.el
         });
 
@@ -73,7 +77,7 @@ var HexView = Backbone.KonvaView.extend({
     },
 
     render: function() {
-        console.log("HexView.render()", this.model.get("x"), this.model.get("y"));
+        console.log("HexView.render()");
 
         Layers.map.draw();
     },
@@ -81,13 +85,8 @@ var HexView = Backbone.KonvaView.extend({
     update: function(object) {
         console.log("HexView.update()");
 
-        console.log(this.el.children[0].attrs.image["src"]);
-
-        if (this.el.children[0].attrs.image["src"] == "http://localhost:3000/img/paper.png") {
-            this.el.children[0].attrs.image["src"] = "img/grass.png"
-        } else {
-            this.el.children[0].attrs.image["src"] = "img/paper.png"
-        }
+        var images = ["img/paper.png", "img/grass.png"];
+        this.el.children[0].attrs.image["src"] = images[Math.floor(Math.random() * images.length)];
 
         this.render();
     },
@@ -96,5 +95,6 @@ var HexView = Backbone.KonvaView.extend({
         "click": "changeFill"
     }
 });
+_.extend(HexView.prototype, CoordinateHelper);
 
 module.exports = HexView;
