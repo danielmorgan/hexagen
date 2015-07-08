@@ -5,12 +5,7 @@ var Hex = require('./Hex.js');
 
 var Hexes = Backbone.Collection.extend({
     model: Hex,
-
-    /**
-     * TODO: implement
-     */
-    sortByRow: function() {
-    }
+    comparator: 'r'
 });
 
 module.exports = Hexes;
