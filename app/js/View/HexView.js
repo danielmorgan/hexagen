@@ -26,26 +26,24 @@ var HexView = Backbone.KonvaView.extend({
     el: function() {
         // console.log('> HexView.el()');
 
-        var radius = 80;
-        var width = radius + (radius * 3/4);
-        var height = radius * 2;
+        var dimensions = this.getImageDimensions();
         var pixelCoordinates = this.axialToPixel(this.model.get('q'), this.model.get('r'));
         var terrainBackground = new Image();
         terrainBackground.src = this.model.get('terrain').image;
 
         var polygon = new Konva.RegularPolygon({
             sides: 6,
-            radius: radius,
+            radius: 80,
             x: pixelCoordinates.x,
             y: pixelCoordinates.y,
             opacity: 1
         });
 
         var image = new Konva.Image({
-            width: width,
-            height: height + 15,
-            x: pixelCoordinates.x - (width / 2),
-            y: pixelCoordinates.y - (height / 2),
+            width: dimensions.width,
+            height: dimensions.height,
+            x: pixelCoordinates.x - (dimensions.width / 2),
+            y: pixelCoordinates.y - (dimensions.height / 2),
             image: terrainBackground
         });
 

@@ -3,6 +3,15 @@
 var CoordinateHelper = {
     radius: 80,
 
+    getImageDimensions: function() {
+        // console.log('> CoordinateHelper.getImageDimensions()');
+
+        var width = this.radius + (this.radius * 3/4);
+        var height = (this.radius * 2) + 15;
+
+        return { width: width, height: height };
+    },
+
     axialToPixel: function(q, r, centered) {
         // console.log('> CoordinateHelper.axialToPixel()');
 
