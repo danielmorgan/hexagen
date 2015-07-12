@@ -13,7 +13,7 @@ var HexView = Backbone.KonvaView.extend({
     },
 
     initialize: function() {
-        this.listenTo(this.model, 'change:selected', this.animateHex);
+        this.animateHex();
     },
 
     select: function() {
@@ -33,14 +33,7 @@ var HexView = Backbone.KonvaView.extend({
         var animation = new Konva.Animation(function(frame) {
             self.el.setY(amplitude * Math.sin(frame.time * 2 * Math.PI / period) + originalPosY);
         }, Layers.map);
-
-        if (this.model.get('selected')) {
-            console.log('start');
-            animation.start();
-        } else {
-            console.log('stop');
-            animation.stop();
-        }
+        animation.start();
     },
 
     el: function() {

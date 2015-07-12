@@ -26,17 +26,17 @@ function pickRandomProperty(obj) {
     return obj[result];
 }
 
-var hexArray = [];
-for (var i = 0; i < 7; i++) {
-    var terrain = pickRandomProperty(Terrain);
-    var q = axialDirections[i].q;
-    var r = axialDirections[i].r;
+var hexArray = []
+for (var q = -5; q < 5; q++) {
+    for (var r = -5; r < 5; r++) {
+        var terrain = pickRandomProperty(Terrain);
 
-    hexArray.push({
-        terrain: terrain,
-        q: q,
-        r: r
-    });
+        hexArray.push({
+            terrain: terrain,
+            q: q,
+            r: r
+        });
+    }
 }
 
 var hexes = new Hexes(hexArray);
