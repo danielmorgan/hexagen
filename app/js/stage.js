@@ -9,4 +9,7 @@ var Stage = new Konva.Stage({
     height: window.innerHeight
 });
 
-Stage.add(Layers.map);
+for (var name in Layers) {
+    var layer = Layers[name];
+    Stage.add(layer);
+}

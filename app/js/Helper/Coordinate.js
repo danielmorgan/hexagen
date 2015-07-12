@@ -7,7 +7,7 @@ var CoordinateHelper = {
         // console.log('> CoordinateHelper.getImageDimensions()');
 
         var width = this.radius + (this.radius * 3/4);
-        var height = (this.radius * 2) + 15;
+        var height = (this.radius * 2);
 
         return { width: width, height: height };
     },

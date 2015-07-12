@@ -6,6 +6,9 @@ var Terrain = {
     },
     desert: {
         image: "img/desert.png"
+    },
+    water: {
+        image: "img/water.png"
     }
 };
 

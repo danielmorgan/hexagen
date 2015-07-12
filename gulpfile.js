@@ -16,6 +16,11 @@ gulp.task('browserSync', function() {
 	});
 });
 
+gulp.task('html', function() {
+    gulp.src('app/*.html')
+        .pipe(browserSync.reload({ stream: true }));
+});
+
 gulp.task('scripts', function() {
     gulp.src('app/js/app.js')
         .pipe(browserify({
@@ -23,11 +28,22 @@ gulp.task('scripts', function() {
             debug: true
         }))
         .pipe(concat('bundle.js'))
-        // .pipe(uglify()) // reduce filesize
         .pipe(gulp.dest('app/'))
-        .pipe(browserSync.reload({stream: true}));
+        .pipe(browserSync.reload({ stream: true }));
+});
+
+gulp.task('deploy', function() {
+    gulp.src('app/js/app.js')
+        .pipe(browserify({
+            insertGlobals: true,
+            debug: false
+        }))
+        .pipe(concat('bundle.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('app/'));
 });
 
 gulp.task('default', ['browserSync', 'scripts'], function() {
+    gulp.watch('app/*.html', ['html']);
 	gulp.watch('app/js/**', ['scripts']);
 });
