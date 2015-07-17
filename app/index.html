@@ -14,98 +14,13 @@
             top: 20px;
             left: 20px;
         }
-        .controls td {
-            padding: 10px;
-            border-right: 3px solid white;
-            border-left: 3px solid white;
-        }
-        .add {
-            padding: 3px 6px;
-            line-height: 16px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 16px;
-            font-family: arial;
-            border-radius: 5px;
-            text-decoration: none;
-            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
-        }
-        .grass {
-            background: #91C72C;
-            color: #ECFFCE;
-        }
-        .desert {
-            background: #E4CA10;
-            color: #FBF3BF;
-        }
-        .water {
-            background: #436F8F;
-            color: #A7E4EF;
-        }
     </style>
 </head>
 <body>
     <div class="controls">
-        <table>
-            <tr>
-                <td>
-                    <a href="#" class="add grass"
-                        data-terrain="grass"
-                        data-q="-2"
-                        data-r="2">+</a>
-                    <a href="#" class="add desert"
-                        data-terrain="desert"
-                        data-q="-2"
-                        data-r="2">+</a>
-                    <a href="#" class="add water"
-                        data-terrain="water"
-                        data-q="-2"
-                        data-r="2">+</a>
-                </td>
-                <td>
-                    <a href="#" class="add grass"
-                        data-terrain="grass"
-                        data-q="-1"
-                        data-r="2">+</a>
-                    <a href="#" class="add desert"
-                        data-terrain="desert"
-                        data-q="-1"
-                        data-r="2">+</a>
-                    <a href="#" class="add water"
-                        data-terrain="water"
-                        data-q="-1"
-                        data-r="2">+</a>
-                </td>
-                <td>
-                    <a href="#" class="add grass"
-                        data-terrain="grass"
-                        data-q="0"
-                        data-r="2">+</a>
-                    <a href="#" class="add desert"
-                        data-terrain="desert"
-                        data-q="0"
-                        data-r="2">+</a>
-                    <a href="#" class="add water"
-                        data-terrain="water"
-                        data-q="0"
-                        data-r="2">+</a>
-                </td>
-                <td>
-                    <a href="#" class="add grass"
-                        data-terrain="grass"
-                        data-q="1"
-                        data-r="2">+</a>
-                    <a href="#" class="add desert"
-                        data-terrain="desert"
-                        data-q="1"
-                        data-r="2">+</a>
-                    <a href="#" class="add water"
-                        data-terrain="water"
-                        data-q="1"
-                        data-r="2">+</a>
-                </td>
-            </tr>
-        </table>
+        <a href="#" class="new">New</a> / 
+        <a href="#" class="save">Save</a> / 
+        <a href="#" class="load">Load</a>
     </div>
 
     <div id="container"></div>

@@ -8,32 +8,67 @@ var Layers = require('../layers.js');
 var CoordinateHelper = require('../Helper/Coordinate.js');
 
 var HexView = Backbone.KonvaView.extend({
+    animation: {},
+
     events: {
-        'click': 'select'
+        'click': 'setSelected'
     },
 
     initialize: function() {
-        this.animateHex();
+        this.model.on('change:selected', this.select, this);
     },
 
-    select: function() {
+    setSelected: function() {
+        console.log('> HexView.setSelected()');
+        
         this.model.set({
             selected: !this.model.get('selected')
         });
     },
 
-    animateHex: function() {
+    select: function() {
+        console.log('> HexView.select()');
+
+        if (this.model.get('selected')) {
+            this.startAnimation();
+        } else {
+            this.resetPosition();
+            this.stopAnimation();
+        }
+
+        console.log(this.model);
+    },
+
+    startAnimation: function() {
         console.log('> HexView.animateHex()', this.model.get('selected'));
 
         var amplitude = 5;
         var period = 2000;
-        var originalPosY = this.el.getY();
         var self = this;
 
-        var animation = new Konva.Animation(function(frame) {
-            self.el.setY(amplitude * Math.sin(frame.time * 2 * Math.PI / period) + originalPosY);
+        this.animation = new Konva.Animation(function(frame) {
+            self.el.setY(amplitude * Math.sin(frame.time * 2 * Math.PI / period));
         }, Layers.map);
-        animation.start();
+        this.animation.start();
+    },
+
+    stopAnimation: function() {
+        console.log('> HexView.stopAnimations()', this.model.get('selected'));
+
+        if (this.el.getY() !== 0) {
+            this.resetPosition(function() {
+                this.animation.stop();
+            });
+        } else {
+            this.animation.stop();
+        }
+    },
+
+    resetPosition: function(callback) {
+        console.log('> HexView.resetPosition()');
+
+        this.el.setY(0);
+        callback;
     },
 
     el: function() {
