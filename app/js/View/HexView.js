@@ -8,39 +8,37 @@ var Layers = require('../layers.js');
 var CoordinateHelper = require('../Helper/Coordinate.js');
 
 var HexView = Backbone.KonvaView.extend({
-    animation: {},
+    animation: false,
 
     events: {
         'click': 'setSelected'
     },
 
     initialize: function() {
-        this.model.on('change:selected', this.select, this);
+        this.collection = this.model.collection;
     },
 
     setSelected: function() {
         console.log('> HexView.setSelected()');
         
-        this.model.set({
-            selected: !this.model.get('selected')
-        });
+        this.collection.setSelected(this.model);
+        this.toggleSelectedAnimation();
     },
 
-    select: function() {
-        console.log('> HexView.select()');
-
-        if (this.model.get('selected')) {
+    toggleSelectedAnimation: function() {
+        console.log('> HexView.toggleSelectedAnimation()');
+        // this.model == this.collection.selected
+        
+        if (! this.animation) {
             this.startAnimation();
         } else {
             this.resetPosition();
             this.stopAnimation();
         }
-
-        console.log(this.model);
     },
 
     startAnimation: function() {
-        console.log('> HexView.animateHex()', this.model.get('selected'));
+        console.log('> HexView.animateHex()', this.collection.selected.cid);
 
         var amplitude = 5;
         var period = 2000;
@@ -62,6 +60,8 @@ var HexView = Backbone.KonvaView.extend({
         } else {
             this.animation.stop();
         }
+
+        this.animation = false;
     },
 
     resetPosition: function(callback) {

@@ -27,8 +27,8 @@ function pickRandomProperty(obj) {
 }
 
 var hexArray = []
-for (var q = -5; q < 5; q++) {
-    for (var r = -5; r < 5; r++) {
+for (var r = -1; r <= 1; r++) {
+    for (var q = -1; q <= 1; q++) {
         var terrain = pickRandomProperty(Terrain);
 
         hexArray.push({
