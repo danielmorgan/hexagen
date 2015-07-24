@@ -104,9 +104,6 @@ var HexView = Backbone.KonvaView.extend({
     render: function() {
         // console.log('> HexView.render()');
 
-        Layers.map.add(this.el);
-        Layers.map.draw();
-
         return this;
     }
 });
