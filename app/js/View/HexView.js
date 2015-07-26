@@ -11,47 +11,46 @@ var HexView = Backbone.KonvaView.extend({
     animation: false,
 
     events: {
-        'click': 'setSelected'
+        'click #polygon': function() {
+            this.collection.setSelected(this.model);
+        }
     },
 
     initialize: function() {
         this.collection = this.model.collection;
+
+        this.listenTo(this.collection, 'setSelected', this.toggleSelectedAnimation);
     },
 
-    setSelected: function() {
-        console.log('> HexView.setSelected()');
-        
-        this.collection.setSelected(this.model);
-        this.toggleSelectedAnimation();
-    },
-
-    toggleSelectedAnimation: function() {
-        console.log('> HexView.toggleSelectedAnimation()');
-        // this.model == this.collection.selected
+    toggleSelectedAnimation: function(cid) {
+        // console.log('> HexView.toggleSelectedAnimationOff()');
         
         if (! this.animation) {
-            this.startAnimation();
+            this.startAnimation(cid);
         } else {
             this.resetPosition();
             this.stopAnimation();
         }
     },
 
-    startAnimation: function() {
-        console.log('> HexView.animateHex()', this.collection.selected.cid);
+    startAnimation: function(cid) {
+        // console.log('> HexView.startAnimation()', this.collection.selected.cid);
 
-        var amplitude = 5;
-        var period = 2000;
-        var self = this;
+        if (this.model.cid === cid) {
+            var amplitude = 10;
+            var period = 2000;
+            var self = this;
 
-        this.animation = new Konva.Animation(function(frame) {
-            self.el.setY(amplitude * Math.sin(frame.time * 2 * Math.PI / period));
-        }, Layers.map);
-        this.animation.start();
+            this.animation = new Konva.Animation(function(frame) {
+                self.el.setY(-amplitude * Math.sin(frame.time * 2 * Math.PI / period));
+            }, Layers.map);
+
+            this.animation.start();
+        }
     },
 
     stopAnimation: function() {
-        console.log('> HexView.stopAnimations()', this.model.get('selected'));
+        // console.log('> HexView.stopAnimation()');
 
         if (this.el.getY() !== 0) {
             this.resetPosition(function() {
@@ -65,9 +64,31 @@ var HexView = Backbone.KonvaView.extend({
     },
 
     resetPosition: function(callback) {
-        console.log('> HexView.resetPosition()');
+        // console.log('> HexView.resetPosition()');
+        this.animation.stop();
 
-        this.el.setY(0);
+        var self = this;
+        var period = 100;
+        var pixelTolerance = 2.5;
+        var startingPositionY = this.el.getY();
+
+        this.animation = new Konva.Animation(function(frame) {
+            var currentPositionY = self.el.getY();
+
+            if (startingPositionY > 0) {
+                self.el.setY(startingPositionY - (frame.time * 2 * Math.PI / period));
+            } else {
+                self.el.setY(startingPositionY + (frame.time * 2 * Math.PI / period));
+            }
+
+            if (currentPositionY < pixelTolerance && currentPositionY > -pixelTolerance) {
+                this.stop();
+                self.el.setY(0);
+            }
+        }, Layers.map);
+
+        this.animation.start();
+
         callback;
     },
 
@@ -84,7 +105,8 @@ var HexView = Backbone.KonvaView.extend({
             radius: this.radius,
             x: pixelCoordinates.x,
             y: pixelCoordinates.y,
-            opacity: 1
+            opacity: 1,
+            id: 'polygon'
         });
 
         var image = new Konva.Image({
@@ -92,7 +114,8 @@ var HexView = Backbone.KonvaView.extend({
             height: dimensions.height + 15,
             x: pixelCoordinates.x - (dimensions.width / 2),
             y: pixelCoordinates.y - (dimensions.height / 2),
-            image: terrainBackground
+            image: terrainBackground,
+            id: 'image'
         });
 
         var tile = new Konva.Group();

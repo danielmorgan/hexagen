@@ -8,13 +8,9 @@ var Hexes = Backbone.Collection.extend({
     comparator: 'r',
     selected: null,
 
-    initialize: function() {
-    },
-
     setSelected: function(hex) {
-        console.log('> Hexes.setSelected()');
-
         this.selected = hex;
+        this.trigger('setSelected', this.selected.cid);
     }
 });
 

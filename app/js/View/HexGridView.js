@@ -3,32 +3,30 @@
 var Backbone = require('backbone');
 var HexView = require('../View/HexView.js');
 var Konva = require('konva');
+require('backbone.konvaview');
 var Layers = require('../layers.js');
 
-var HexGridView = Backbone.View.extend({
+var HexGridView = Backbone.KonvaView.extend({
 
     initialize: function(hexes) {
-        // console.log('> HexGridView.initialize()');
+        console.log('> HexGridView.initialize()');
 
         this.collection = hexes;
-        this.addHexesToEl();
+        this.collection.each(this.addOneHex);
 
         this.listenTo(this.collection, 'add', this.addHex);
     },
 
-    addHexesToEl: function() {
-        var group = new Konva.Group();
+    addOneHex: function(hex) {
+        // console.log('> HexGridView.addOneHex()');
 
-        this.collection.each(function(hex) {
-            var hexView = new HexView({ model: hex });
-            group.add(hexView.el);
-        });
-
-        this.setElement(group);
+        var hexView = new HexView({ model: hex });
+        Layers.map.add(hexView.el);
     },
 
     render: function() {
-        Layers.map.add(this.el);
+        console.log('> HexGridView.render()');
+
         Layers.map.draw();
 
         return this;
