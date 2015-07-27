@@ -9,7 +9,6 @@ var HexView = require('../View/HexView.js');
 var SkyView = Backbone.KonvaView.extend({
     initialize: function() {
         this.addToBackground();
-        this.render();
     },
 
     el: function() {

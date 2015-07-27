@@ -2,6 +2,14 @@
 
 var CoordinateHelper = {
     radius: 80,
+    axialDirections: [
+        { q: 0, r: -1 }, // up, left
+        { q: 1, r: -1 }, // up, right
+        { q: -1, r: 0 }, // left
+        { q: 1, r: 0 }, // right
+        { q: -1, r: 1 }, // down, left
+        { q: 0, r: 1 } // down, right
+    ],
 
     getImageDimensions: function() {
         // console.log('> CoordinateHelper.getImageDimensions()');

@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 var Konva = require('konva');
 require('backbone.konvaview');
 var Layers = require('../layers.js');
-var CoordinateHelper = require('../Helper/Coordinate.js');
+var CoordinateHelper = require('../Helper/CoordinateHelper.js');
 
 var HexView = Backbone.KonvaView.extend({
     animation: false,

@@ -9,16 +9,16 @@ var Layers = require('../layers.js');
 var HexGridView = Backbone.KonvaView.extend({
 
     initialize: function(hexes) {
-        console.log('> HexGridView.initialize()');
+        // console.log('> HexGridView.initialize()');
 
         this.collection = hexes;
         this.collection.each(this.addOneHex);
 
-        this.listenTo(this.collection, 'add', this.addHex);
+        this.listenTo(this.collection, 'add', this.addOneHex);
     },
 
     addOneHex: function(hex) {
-        // console.log('> HexGridView.addOneHex()');
+        console.log('> HexGridView.addOneHex()');
 
         var hexView = new HexView({ model: hex });
         Layers.map.add(hexView.el);
