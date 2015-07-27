@@ -9,29 +9,41 @@ var SkyView = require('../View/SkyView.js');
 require('../stage.js');
 
 var WorldGenerator = {
+    hexArray: [],
 
     newWorld: function(radius) {
-        var hexArray = [];
+        this.generateRadius(radius);
 
-        // generate center hex
-        hexArray.push({
+        return this.hexArray;
+    },
+
+    addHexToArray: function(direction, ring) {
+        var coordinates = CoordinateHelper.cubeToAxial(direction.x, direction.z);
+
+        this.hexArray.push({
             terrain: this.getRandomTerrain(),
-            q: 0,
-            r: 0
+            q: coordinates.q,
+            r: coordinates.r
         });
+    },
 
-        // generate surrounding rings
-        for (var i = 1; i < radius; i++) {
-            _.each(CoordinateHelper.axialDirections, function(direction, index) {
-                hexArray.push({
-                    terrain: WorldGenerator.getRandomTerrain(),
-                    q: direction.q * i,
-                    r: direction.r * i
-                });
-            });
+    generateRadius: function(radius) {
+        var self = this;
+
+        var outerIterator = -radius;
+        while (outerIterator < radius + 1) {
+            var x = outerIterator++;
+            var innerIterator = -radius;
+            while (innerIterator < radius + 1) {
+                var y = innerIterator++;
+                var z = -x - y;
+                if (Math.abs(x) <= radius && 
+                    Math.abs(y) <= radius && 
+                    Math.abs(z) <= radius) {
+                    self.addHexToArray({ x: x, y: y, z: z }, radius);
+                }
+            }
         }
-
-        return hexArray;
     },
 
     getRandomTerrain: function() {

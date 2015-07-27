@@ -2,13 +2,21 @@
 
 var CoordinateHelper = {
     radius: 80,
-    axialDirections: [
-        { q: 0, r: -1 }, // up, left
-        { q: 1, r: -1 }, // up, right
-        { q: -1, r: 0 }, // left
-        { q: 1, r: 0 }, // right
-        { q: -1, r: 1 }, // down, left
-        { q: 0, r: 1 } // down, right
+    directions: [
+        { x: 0, y: 1, z: -1 }, // up, left
+        { x: 1, y: 0, z: -1 }, // up, right
+        { x: -1, y: 1, z: 0 }, // left
+        { x: 1, y: -1, z: 0 }, // right
+        { x: -1, y: 0, z: 1 }, // down, left
+        { x: 0, y: -1, z: 1 } // down, right
+    ],
+    diagonals: [
+        { x: -1, y: 2, z: -1 }, // up, left
+        { x: 2, y: -1, z: -1 }, // up, right
+        { x: 1, y: 1, z: -2 }, // up
+        { x: -1, y: -1, z: 2 }, // down
+        { x: -2, y: 1, z: 1 }, // down, left
+        { x: 1, y: -2, z: 1 } // down, right
     ],
 
     getImageDimensions: function() {

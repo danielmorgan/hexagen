@@ -9,6 +9,7 @@ var CoordinateHelper = require('../Helper/CoordinateHelper.js');
 
 var HexView = Backbone.KonvaView.extend({
     animation: false,
+    enableCoordinates: true,
 
     events: {
         'click #polygon': function() {
@@ -99,6 +100,43 @@ var HexView = Backbone.KonvaView.extend({
         var pixelCoordinates = this.axialToPixel(this.model.get('q'), this.model.get('r'));
         var terrainBackground = new Image();
         terrainBackground.src = this.model.get('terrain').image;
+        var cubeCoordinates = this.axialToCube(this.model.get('q'), this.model.get('r'));
+
+        var axialCoordinatesText = new Konva.Text({
+            x: pixelCoordinates.x - 15,
+            y: pixelCoordinates.y - 10,
+            text: this.model.get('q') + ', ' + this.model.get('r'),
+            fontSize: 18,
+            fontFamily: 'Arial',
+            fill: 'white'
+        });
+
+        var cubeCoordinateXText = new Konva.Text({
+            x: pixelCoordinates.x + (this.radius / 2),
+            y: pixelCoordinates.y - (this.radius / 2),
+            text: cubeCoordinates.x,
+            fontSize: 18,
+            fontFamily: 'Arial',
+            fill: 'black'
+        });
+
+        var cubeCoordinateYText = new Konva.Text({
+            x: pixelCoordinates.x - (this.radius / 2) - 10,
+            y: pixelCoordinates.y - (this.radius / 2),
+            text: cubeCoordinates.y,
+            fontSize: 18,
+            fontFamily: 'Arial',
+            fill: 'black'
+        });
+
+        var cubeCoordinateZText = new Konva.Text({
+            x: pixelCoordinates.x - 5,
+            y: pixelCoordinates.y + (this.radius / 2),
+            text: cubeCoordinates.z,
+            fontSize: 18,
+            fontFamily: 'Arial',
+            fill: 'black'
+        });
 
         var polygon = new Konva.RegularPolygon({
             sides: 6,
@@ -119,7 +157,14 @@ var HexView = Backbone.KonvaView.extend({
         });
 
         var tile = new Konva.Group();
-        tile.add(image, polygon);
+        tile.add(image);
+        if (this.enableCoordinates) {
+            tile.add(axialCoordinatesText,
+                cubeCoordinateXText,
+                cubeCoordinateYText,
+                cubeCoordinateZText);
+        }
+        tile.add(polygon);
 
         return tile;
     },
