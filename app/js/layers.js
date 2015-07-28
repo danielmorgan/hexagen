@@ -14,8 +14,16 @@ function move(e) {
 
 map.on('dragmove', move);
 
-new Konva.Animation(null, background).start();
-new Konva.Animation(null, map).start();
+new Konva.Animation(function(frame) {
+    if (frame.time > 1000) {
+        return false;
+    }
+}, background).start();
+new Konva.Animation(function(frame) {
+    if (frame.time > 1000) {
+        return false;
+    }
+}, map).start();
 
 
 var Layers = {

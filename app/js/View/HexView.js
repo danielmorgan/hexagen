@@ -103,57 +103,68 @@ var HexView = Backbone.KonvaView.extend({
         var cubeCoordinates = this.axialToCube(this.model.get('q'), this.model.get('r'));
 
         var axialCoordinatesText = new Konva.Text({
-            x: pixelCoordinates.x - 15,
-            y: pixelCoordinates.y - 10,
+            x: -15,
+            y: -10,
             text: this.model.get('q') + ', ' + this.model.get('r'),
             fontSize: 18,
             fontFamily: 'Arial',
-            fill: 'white'
+            fill: 'white',
+            listening: false,
+            perfectDrawEnabled: false
         });
 
         var cubeCoordinateXText = new Konva.Text({
-            x: pixelCoordinates.x + (this.radius / 2),
-            y: pixelCoordinates.y - (this.radius / 2),
+            x: (this.radius / 2),
+            y: -(this.radius / 2),
             text: cubeCoordinates.x,
             fontSize: 18,
             fontFamily: 'Arial',
-            fill: 'black'
+            fill: 'black',
+            listening: false,
+            perfectDrawEnabled: false
         });
 
         var cubeCoordinateYText = new Konva.Text({
-            x: pixelCoordinates.x - (this.radius / 2) - 10,
-            y: pixelCoordinates.y - (this.radius / 2),
+            x: -(this.radius / 2) - 10,
+            y: -(this.radius / 2),
             text: cubeCoordinates.y,
             fontSize: 18,
             fontFamily: 'Arial',
-            fill: 'black'
+            fill: 'black',
+            listening: false,
+            perfectDrawEnabled: false
         });
 
         var cubeCoordinateZText = new Konva.Text({
-            x: pixelCoordinates.x - 5,
-            y: pixelCoordinates.y + (this.radius / 2),
+            x: -5,
+            y: (this.radius / 2),
             text: cubeCoordinates.z,
             fontSize: 18,
             fontFamily: 'Arial',
-            fill: 'black'
+            fill: 'black',
+            listening: false,
+            perfectDrawEnabled: false
         });
 
         var polygon = new Konva.RegularPolygon({
             sides: 6,
             radius: this.radius,
-            x: pixelCoordinates.x,
-            y: pixelCoordinates.y,
+            x: 0,
+            y: 0,
             opacity: 1,
-            id: 'polygon'
+            id: 'polygon',
+            perfectDrawEnabled: false
         });
 
         var image = new Konva.Image({
             width: dimensions.width,
             height: dimensions.height + 15,
-            x: pixelCoordinates.x - (dimensions.width / 2),
-            y: pixelCoordinates.y - (dimensions.height / 2),
+            x: -(dimensions.width / 2),
+            y: -(dimensions.height / 2),
             image: terrainBackground,
-            id: 'image'
+            id: 'image',
+            listening: false,
+            perfectDrawEnabled: false
         });
 
         var tile = new Konva.Group();
@@ -165,6 +176,9 @@ var HexView = Backbone.KonvaView.extend({
                 cubeCoordinateZText);
         }
         tile.add(polygon);
+
+        tile.setX(pixelCoordinates.x);
+        tile.setY(pixelCoordinates.y);
 
         return tile;
     },

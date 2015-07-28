@@ -2,5 +2,5 @@
 
 var WorldGenerator = require('./Generator/WorldGenerator.js');
 
-var world = WorldGenerator.newWorld(4);
+var world = WorldGenerator.newWorld(3);
 WorldGenerator.render(world);
