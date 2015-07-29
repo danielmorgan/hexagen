@@ -1,11 +1,14 @@
 'use strict';
 
+var _ = require('underscore');
 var Backbone = require('backbone');
+var Terrain = require('../Model/Terrain.js');
 var Hex = require('../Model/Hex.js');
 var HexView = require('../View/HexView.js');
 var Konva = require('konva');
 require('backbone.konvaview');
 var Layers = require('../layers.js');
+var CoordinateHelper = require('../Helper/CoordinateHelper.js');
 
 var HexGridView = Backbone.KonvaView.extend({
 
@@ -20,23 +23,17 @@ var HexGridView = Backbone.KonvaView.extend({
     },
 
     addInitialHexes: function() {
-        var baseGrassHex = new Hex({
-            x: 0,
-            y: 0,
-            terrain: { 'name': 'grass', 'image': 'img/grass.png' }
-        })
-        var baseGrassHexView = new HexView({ model: baseGrassHex });
-        console.log(baseGrassHexView);
+        var baseGrassHexView = new HexView({
+            model: new Hex({ terrain: Terrain.grass })
+        });
         baseGrassHexView.el.cache();
 
         this.collection.each(function(hex) {
-            var grassHexView = baseGrassHexView.el.clone({
-                x: hex.x,
-                y: hex.y
-            });
-            grassHexView.cache();
-            // var grassHexView = new HexView({ model: hex });
-            Layers.map.add(grassHexView.el);
+            var pixelCoordinates = CoordinateHelper.axialToPixel(hex.get('q'), hex.get('r'));
+            Layers.map.add(baseGrassHexView.el.clone({
+                x: pixelCoordinates.x,
+                y: pixelCoordinates.y
+            }));
         });
     },
 
