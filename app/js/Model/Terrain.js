@@ -2,13 +2,13 @@
 
 var Terrain = {
     grass: {
-        image: "img/grass.png"
+        image: 'img/grass.png'
     },
     desert: {
-        image: "img/desert.png"
+        image: 'img/desert.png'
     },
     water: {
-        image: "img/water.png"
+        image: 'img/water.png'
     }
 };
 

@@ -18,14 +18,14 @@ var HexGridView = Backbone.KonvaView.extend({
     },
 
     addOneHex: function(hex) {
-        console.log('> HexGridView.addOneHex()');
+        // console.log('> HexGridView.addOneHex()');
 
         var hexView = new HexView({ model: hex });
         Layers.map.add(hexView.el);
     },
 
     render: function() {
-        console.log('> HexGridView.render()');
+        // console.log('> HexGridView.render()');
 
         Layers.map.draw();
 

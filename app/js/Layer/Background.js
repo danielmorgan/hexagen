@@ -3,13 +3,13 @@
 var _ = require('underscore');
 var Konva = require('konva');
 
-var Background = new Konva.Layer();
+var Background = new Konva.FastLayer();
 
 _.extend(Background, {
-	move: function(e) {
-		this.x(this.x() - (e.evt.movementX / 5));
-		this.y(this.y() - (e.evt.movementY / 5));
-		this.draw();
+	move: function(event) {
+		Background.x(Background.x() - (event.evt.movementX / 5));
+		Background.y(Background.y() - (event.evt.movementY / 5));
+		Background.draw();
 	}
 });
 

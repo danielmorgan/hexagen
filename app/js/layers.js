@@ -2,17 +2,20 @@
 
 var Backbone = require('backbone');
 var Konva = require('konva');
-var Map = require('./Layer/Map.js');
+var HexMap = require('./Layer/HexMap.js');
 var Background = require('./Layer/Background.js');
 
-Map.on('dragmove', Background.move);
+HexMap.on('dragmove', Background.move);
+document.addEventListener('mousewheel', function(event) {
+    HexMap.scrollWheelZoom(event);
+});
 
 new Konva.Animation(null, Background).start();
-new Konva.Animation(null, Map).start();
+new Konva.Animation(null, HexMap).start();
 
 var Layers = {
     background: Background,
-    map: Map
+    map: HexMap
 };
 
 module.exports = Layers;
