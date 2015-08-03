@@ -9,7 +9,7 @@ var CoordinateHelper = require('../Helper/CoordinateHelper.js');
 
 var HexView = Backbone.KonvaView.extend({
     animation: false,
-    enableCoordinates: true,
+    enableCoordinates: false,
 
     events: {
         'click #polygon': function() {

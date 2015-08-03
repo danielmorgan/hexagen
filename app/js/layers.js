@@ -2,25 +2,17 @@
 
 var Backbone = require('backbone');
 var Konva = require('konva');
+var Map = require('./Layer/Map.js');
+var Background = require('./Layer/Background.js');
 
-var background = new Konva.Layer();
-var map = new Konva.Layer({ draggable: true });
+Map.on('dragmove', Background.move);
 
-function move(e) {
-    background.x(background.x() - (e.evt.movementX / 5));
-    background.y(background.y() - (e.evt.movementY / 5));
-    background.draw();
-}
-
-map.on('dragmove', move);
-
-new Konva.Animation(null, background).start();
-new Konva.Animation(null, map).start();
-
+new Konva.Animation(null, Background).start();
+new Konva.Animation(null, Map).start();
 
 var Layers = {
-    background: background,
-    map: map
+    background: Background,
+    map: Map
 };
 
 module.exports = Layers;
