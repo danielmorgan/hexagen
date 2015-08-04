@@ -14,18 +14,30 @@ var HexMap = new Konva.Layer({
 
 _.extend(HexMap, {
     scrollWheelZoom: function(event) {
-        this.scale({
-            x: this.scale().x - (event.deltaY / 5000),
-            y: this.scale().y - (event.deltaY / 5000)
-        });
+        var self = this;
+        var initialScale = self.scale().x;
+        var targetScale = initialScale + (event.deltaY / 1000);
+  
+        console.log(initialScale, targetScale);
 
-        if (this.scale().x < minScale) {
-            this.scale({ x: minScale, y: minScale });
-        }
+        var animation = new Konva.Animation(function(frame) {
+            if (event.deltaY < 0) {
+                var frameScale = initialScale - ((frame.time * 2 * Math.PI / 500) * (event.deltaY / 1000));
+            } else {
+                var frameScale = initialScale + ((frame.time * 2 * Math.PI / 500) * (event.deltaY / 1000));
+            }
 
-        if (this.scale().x > maxScale) {
-            this.scale({ x: maxScale, y: maxScale });
-        }
+            self.scale({
+                x: frameScale,
+                y: frameScale
+            });
+
+            if (self.scale().x >= targetScale || self.scale().x <= targetScale) {
+                this.stop();
+            }
+
+            document.title = frame.frameRate;
+        }, self).start();
     }
 });
 
