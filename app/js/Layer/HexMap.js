@@ -13,31 +13,55 @@ var HexMap = new Konva.Layer({
 });
 
 _.extend(HexMap, {
-    scrollWheelZoom: function(event) {
-        var self = this;
-        var initialScale = self.scale().x;
-        var targetScale = initialScale + (event.deltaY / 1000);
-  
-        console.log(initialScale, targetScale);
+
+    scrollWheelZoomAnimation: function() {
+        if (targetScale > maxScale) { targetScale = maxScale; }
+        if (targetScale < minScale) { targetScale = minScale; }
+        if (event.deltaY < 0) { zoomDirection = 'in'; }
+        if (event.deltaY > 0) { zoomDirection = 'out'; }
+
+        console.log(zoomDirection,initialScale, targetScale);
 
         var animation = new Konva.Animation(function(frame) {
-            if (event.deltaY < 0) {
-                var frameScale = initialScale - ((frame.time * 2 * Math.PI / 500) * (event.deltaY / 1000));
-            } else {
-                var frameScale = initialScale + ((frame.time * 2 * Math.PI / 500) * (event.deltaY / 1000));
+            if (zoomDirection == 'in') {
+                var frameScale = initialScale + ((frame.time * 2 * Math.PI / period));
+            }
+            if (zoomDirection == 'out') {
+                var frameScale = initialScale - ((frame.time * 2 * Math.PI / period));
+            }
+            if (frameScale > maxScale) {
+                frameScale = maxScale;
+                continueAnimation = false;
+            }
+            if (frameScale < minScale) {
+                frameScale = minScale;
+                continueAnimation = false;
             }
 
-            self.scale({
-                x: frameScale,
-                y: frameScale
-            });
-
-            if (self.scale().x >= targetScale || self.scale().x <= targetScale) {
+            if (continueAnimation) {
+                self.scale({
+                    x: frameScale,
+                    y: frameScale
+                });
+            } else {
                 this.stop();
             }
 
             document.title = frame.frameRate;
         }, self).start();
+    },
+    scrollWheelZoom: function(event) {
+        var self = this,
+            initialScale = self.scale().x,
+            period = 500,
+            zoomDirection,
+            continueAnimation;
+
+        var targetScale = initialScale - (event.deltaY / 1000);
+
+        setTimeout(function() {
+            scrollWheelZoomAnimation();
+        }, 300);
     }
 });
 
